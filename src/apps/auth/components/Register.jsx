@@ -6,7 +6,7 @@ const {register} = useFirebase()
 const [email, setEmail] = useState("")
 const [password, setPassword] = useState("")
   return (
-     <form action="">
+     <form >
         <input type="text" placeholer="Username"
         onChange={(e)=> setEmail(e.target.value)}
         />

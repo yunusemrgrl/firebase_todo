@@ -21,7 +21,7 @@ function App() {
       <Routes>
         {!authToken && (
           <>
-            <Route path='/' element={<Navigate to={'auth'} />} />
+            <Route path='/*' element={<Navigate to={'auth'} />} />
             <Route path='auth/*' element={<PublicRoutes />} />
           </>
         )}

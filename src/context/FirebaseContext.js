@@ -23,7 +23,9 @@ export const FirebaseProvider = ({ children }) => {
         email,
         password,
       );
-      console.log('SıgnIn result:', result);
+
+      setUser(result.user);
+      setAuthToken(result.user.accessToken);
     } catch (error) {
       console.log('signIn error', error);
     }
