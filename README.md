@@ -1,3 +1,7 @@
+- [x] Email ile Register olabilecek 
+- [ ] Hesabi olanlar Email adresi ile Login Yapabilecek
+- [ ] Todos'lar Firebase Database'inde Real Time olarak Çalışacak
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
