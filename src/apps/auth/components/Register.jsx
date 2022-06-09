@@ -9,20 +9,34 @@ import {
   FormLabel,
   FormErrorMessage,
   Input,
-  VStack
+  VStack,
+  Text,
+  Heading
 } from "@chakra-ui/react";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { Link } from "react-router-dom";
+
 // COMPONENT
+
 import { useFirebase } from '../../../context/FirebaseContext'
+
 
 function Register() {
 
     const {register} = useFirebase()
-    const [error, setError] = useState("")
 
-    return (
+    
+
+
+    return (<>
+
+      <ToastContainer />
+
     <Flex bg="gray.100" align="center" justify="center" h="100vh">
-      <Box bg="white" p={6} rounded="md" w={64}>
+      <Box bg="white" boxShadow="dark-lg" zIndex={100} p={6} rounded="md" w={64}>
         <Formik
           initialValues={{
             email: "",
@@ -30,14 +44,7 @@ function Register() {
             rememberMe: false
           }}
           onSubmit={(values) => {
-            try {
               register(values.email, values.password)
-            }
-            catch(e) {
-              setError(e.message)
-              console.log("register", error)
-            }
-
           }}
         >
           {({ handleSubmit, errors, touched }) => (
@@ -81,7 +88,7 @@ function Register() {
                 >
                   Remember me?
                 </Field>
-                <Button type="submit" colorScheme="purple" width="full">
+                <Button type="submit" colorScheme="blue" width="full">
                   Register
                 </Button>
               </VStack>
@@ -89,7 +96,19 @@ function Register() {
           )}
         </Formik>
       </Box>
+      <Box boxShadow="2xl" bg="linear-gradient(330deg, #8aa9db, #2042aa)" zIndex={99} ml={-10} p={8} rounded="md" w={600} h={600}>
+        <Flex w={"full"} h={"full"} align="center" justify="center" direction="column" >
+        <Heading fontSize="4xl" color="white" as='em' >Welcome !</Heading>
+        <Text fontSize="2xl" color="white" as='em' mt={30}> Already have an account ?</Text>
+        <Link to="../login">
+          <Button type="button" pl={8} pr={8} colorScheme="gray" width="full" mt={10}>
+            Login
+          </Button>
+        </Link>
+        </Flex>
+      </Box>
     </Flex>
+    </>
   );
 }
 

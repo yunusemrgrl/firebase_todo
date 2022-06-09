@@ -7,6 +7,8 @@ import {
   signOut,
 } from 'firebase/auth';
 
+import { toast } from 'react-toastify';
+
 //COMPONENTS
 import { auth } from '../firebase';
 
@@ -16,6 +18,9 @@ export const FirebaseProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(null);
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
+
+  const registerError = () => toast('auth/email already in use!');
+  const loginError = () => toast('auth/email not found!');
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('user'));
@@ -37,19 +42,6 @@ export const FirebaseProvider = ({ children }) => {
       }
     });
   }, [setUser]);
-
-  // (async () => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       const { uid, email } = user;
-  //       const userData = { uid, email };
-  //       setUser(userData);
-  //     } else {
-  //       setUser(null);
-  //     }
-  //   });
-  // })();
-
   const register = async (email, password) => {
     try {
       const result = await createUserWithEmailAndPassword(
@@ -63,6 +55,7 @@ export const FirebaseProvider = ({ children }) => {
     } catch (e) {
       setError(e.message);
       console.log('register error', error);
+      registerError();
     }
   };
   const login = async (email, password) => {
@@ -74,6 +67,7 @@ export const FirebaseProvider = ({ children }) => {
     } catch (e) {
       setError(e.message);
       console.log('login error', error);
+      loginError();
     }
   };
   const logout = async () => {
@@ -93,6 +87,8 @@ export const FirebaseProvider = ({ children }) => {
     login,
     setUser,
     logout,
+    error,
+    setError,
   };
   return (
     <FirebaseContext.Provider value={values}>
